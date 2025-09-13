@@ -144,6 +144,7 @@ const Chat = () => {
       <Modal isPageOpen={openModal} title='Create New Chat' description='Get started with a new chat session' >
         <Button onClick={()=>{
           addChat('New Chat')
+          toast.success('New Chat Created, please resend your message')
           setOpenModal(false)
         }} className="mt-4 cursor-pointer text-black dark:text-white px-6 py-2 rounded-md" variant={'outline'}>Create</Button>
       </Modal>
