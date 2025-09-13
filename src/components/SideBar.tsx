@@ -86,6 +86,7 @@ const SideBar = () => {
         </ul>
       </div>
       <Modal
+      setOpenModal={setShowSearchModal}
         title='Search Your Chats'
         description='Start by writing any title name'
         isPageOpen = {showSearchModal}

@@ -19,17 +19,31 @@ import { toast } from 'sonner';
   "Good question! Let’s figure it out step by step. I’ll share my thoughts, and then we can see where it leads — it might even open up some new ideas along the way."
 ];
 
-export const Modal = ({children,isPageOpen,title,description}:{children:React.ReactNode,isPageOpen:boolean,title:string,description:string}) =>{
+type ModalProps = {
+  children: React.ReactNode;
+  isPageOpen: boolean;
+  setOpenModal: (open: boolean) => void;
+  title: string;
+  description: string;
+};
+
+export const Modal = ({
+  children,
+  isPageOpen,
+  setOpenModal,
+  title,
+  description,
+}: ModalProps) => {
   return (
-    <div className={`fixed inset-0 z-30 size-full ${isPageOpen ?" visible":"invisible"}  bg-stone-900/50  flex justify-center items-center`}>
-        <main className={`w-[40%] h-[60%] ${isPageOpen ? "scale-100":"scale-0"} overflow-y-auto transition-all duration-300 bg-stone-800 dark:bg-stone-700  text-white dark:text-black rounded-md p-4 text-center flex flex-col justify-center items-center gap-2`}>
-          <h2 className="text-2xl dark:text-white">{title}</h2>
-          <p className="text-sm opacity-70 mb-6 dark:text-white">{description}</p>
-          {children}
-        </main>
+    <div onClick={()=>setOpenModal(false)} className={`fixed inset-0 z-30 size-full ${isPageOpen ? " visible" : "invisible"}  bg-stone-900/50  flex justify-center items-center`}>
+      <main onClick={e=>e.stopPropagation()} className={`w-[40%] h-[60%] ${isPageOpen ? "scale-100" : "scale-0"} overflow-y-auto transition-all duration-300 bg-stone-800 dark:bg-stone-700  text-white dark:text-black rounded-md p-4 text-center flex flex-col justify-center items-center gap-2`}>
+        <h2 className="text-2xl dark:text-white">{title}</h2>
+        <p className="text-sm opacity-70 mb-6 dark:text-white">{description}</p>
+        {children}
+      </main>
     </div>
-  )
-}
+  );
+};
 
 const Chat = () => {
   const chats = useChatStore((state) => state.chats)
@@ -43,7 +57,7 @@ const Chat = () => {
   const [inputValue, setInputValue] = useState('')
   const [AIThinking, setAIThinking] = useState(false)
   const [openModal, setOpenModal] = useState(false)
-
+console.log(openModal)
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -141,13 +155,13 @@ const Chat = () => {
       <p className="opacity-60 text-xs text-center mt-1">
         Gemini can make mistakes, so double check it
       </p>
-      <Modal isPageOpen={openModal} title='Create New Chat' description='Get started with a new chat session' >
+     {openModal && <Modal setOpenModal={setOpenModal} isPageOpen={openModal} title='Create New Chat' description='Get started with a new chat session' >
         <Button onClick={()=>{
           addChat('New Chat')
           toast.success('New Chat Created, please resend your message')
           setOpenModal(false)
         }} className="mt-4 cursor-pointer text-black dark:text-white px-6 py-2 rounded-md" variant={'outline'}>Create</Button>
-      </Modal>
+      </Modal>}
     </section>
   )
 }
