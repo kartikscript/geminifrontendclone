@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Modal } from './Chat'
 import { Input } from './ui/input'
+import { toast } from 'sonner'
 
 export function DropdownMenuDemo({triggerEl, children}: {triggerEl: React.ReactNode, children: React.ReactNode  }) {
   return (
@@ -73,7 +74,7 @@ const SideBar = () => {
                     <MoreVertical className='h-full scale-125 aspect-square p-1 rounded-full hover:bg-stone-300 dark:hover:bg-stone-500 hidden group-hover:block ' />
                   }
                 >
-                  <DropdownMenuItem onClick={()=>removeChat(chat.id)} variant='destructive' >
+                  <DropdownMenuItem onClick={()=>{removeChat(chat.id); toast.success('Chat successfully deleted !')}} variant='destructive' >
                      Delete
                   </DropdownMenuItem>
                 </DropdownMenuDemo>

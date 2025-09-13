@@ -47,7 +47,7 @@ export const useChatStore = create<ChatStore>((set) => ({
         title,
         messages: [],
       };
-      Chats.push(newChat); // also add to constants for sidebar display
+      // Chats.push(newChat); // also add to constants for sidebar display
       return {
         chats: [...state.chats, newChat],
         activeChatId: newChat.id, // auto-focus new chat

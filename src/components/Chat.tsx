@@ -111,10 +111,10 @@ const Chat = () => {
                 <Bot className="p-2 min-w-10 size-10 bg-stone-200 dark:bg-stone-700 rounded-full" />
               )}
               <p className="whitespace-pre-wrap">{msg.content}</p>
-              <Copy className='cursor-pointer size-8 p-2 rounded-md hover:bg-stone-300 hover:dark:bg-stone-700' onClick={()=>copyToClipboard(msg.content)} />
+              <Copy className='cursor-pointer min-w-8 size-8 p-2 rounded-md hover:bg-stone-300 hover:dark:bg-stone-700' onClick={()=>copyToClipboard(msg.content)} />
             </div>
           ))}
-          {AIThinking && (<h2 className='p-4 flex gap-2 items-center font-semibold '><Bot className="p-2 animate-pulse size-10 bg-stone-200 rounded-full"/>AI is thinking...</h2>)}
+          {AIThinking && (<h2 className='p-4 flex gap-2 items-center font-semibold '><Bot className="p-2 animate-pulse size-10 bg-stone-200 dark:bg-stone-500 rounded-full"/>AI is thinking...</h2>)}
           <div ref={messagesEndRef} />
         </div>
       ) : (
