@@ -154,7 +154,7 @@ const fileToBase64 = (file: File): Promise<string> => {
               )}
               
               <div className="whitespace-pre-wrap flex flex-col">
-                <img src={msg.image || ''} alt="attached" className={`${msg.image ? 'max-h-40 rounded-md mb-2' : 'hidden'}`} />
+                {msg.image &&<img src={msg.image} alt="attached" className={`${msg.image ? 'max-h-40 rounded-md mb-2' : 'hidden'}`} />}
                 <p>{msg.content}</p>  
               </div>
               <Copy className='group-hover:visible invisible transition-all cursor-pointer min-w-8 size-8 p-2 rounded-md hover:bg-stone-300 hover:dark:bg-stone-700' onClick={()=>copyToClipboard(msg.content)} />
