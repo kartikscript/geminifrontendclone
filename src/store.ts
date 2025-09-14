@@ -6,6 +6,7 @@ type Message = {
   id: string;
   role: "user" | "assistant";
   content: string;
+  image:string | null
 };
 
 type Chat = {
@@ -23,7 +24,7 @@ type ChatStore = {
   setActiveChat: (id?: string) => void;
   addChat: (title: string) => void;
   removeChat: (id: string) => void;
-  addMessage: (chatId: string , role: "user" | "assistant", content: string) => void;
+  addMessage: (chatId: string , role: "user" | "assistant", content: string,image:string|null) => void;
   deleteMessage: (chatId: string, messageId: string) => void;
   resetStore: () => void;
 };
@@ -62,7 +63,7 @@ export const useChatStore = create<ChatStore>((set) => ({
     Chats.filter(c => c.id !== id)
   },
 
-  addMessage: (chatId, role, content) =>{
+  addMessage: (chatId, role, content,image) =>{
 
     if(role === 'user'){
       set((state) => ({
@@ -74,7 +75,7 @@ export const useChatStore = create<ChatStore>((set) => ({
                   ...c,
                   messages: [
                     ...c.messages,
-                    { id: nanoid(), role, content },
+                    { id: nanoid(), role, content,image },
                   ],
                 }
               : c
@@ -100,7 +101,7 @@ export const useChatStore = create<ChatStore>((set) => ({
                     ...c, 
                     messages: c.messages.map(m => 
                       m.id === messageId 
-                      ? { ...m, content: m.content + content[i] }
+                      ? { ...m, content: m.content + content[i], image }
                       : m
                     )
                   }
@@ -109,7 +110,7 @@ export const useChatStore = create<ChatStore>((set) => ({
                     ...c,
                     messages: [
                       ...c.messages,
-                      { id: messageId, role, content: content[i] },
+                      { id: messageId, role, content: content[i],image },
                     ],
                 })
               //this istricky

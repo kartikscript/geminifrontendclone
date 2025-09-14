@@ -57,7 +57,8 @@ const Chat = () => {
   const [inputValue, setInputValue] = useState('')
   const [AIThinking, setAIThinking] = useState(false)
   const [openModal, setOpenModal] = useState(false)
-console.log(openModal)
+const [base64Url, setBase64Url] = useState<string | null>(null);
+
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -74,16 +75,17 @@ console.log(openModal)
     }
 
     // Add user message
-    addMessage(activeChat?.id, "user", inputValue )
+    addMessage(activeChat?.id, "user", inputValue, base64Url)
 
     // Add assistant random reply
     setAIThinking(true)
     const randomReply = randomReplies[Math.floor(Math.random() * randomReplies.length)]
     setTimeout(() => {
       setAIThinking(false)
-      addMessage(activeChat?.id, "assistant", randomReply )
+      addMessage(activeChat?.id, "assistant", randomReply, null)
     }, 5000) // small delay for realism
 
+    setBase64Url(null) // clear image
     setInputValue("") // clear input
   }
 
@@ -106,6 +108,32 @@ console.log(openModal)
   }
 };
 
+const fileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file); // convert file → base64
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]; // 👈 only first file
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("Please select a valid image.");
+      return;
+    }
+
+    try {
+      const base64 = await fileToBase64(file);
+      setBase64Url(base64);
+    } catch (err) {
+      console.error("Error converting file:", err);
+    }
+  };
+
 
   return (
     <section className="relative w-full sm:w-[80%] lg:w-3xl mx-auto flex flex-col flex-1 overflow-hidden pb-2">
@@ -124,7 +152,11 @@ console.log(openModal)
               {msg.role === 'assistant' && (
                 <Bot className="p-2 min-w-10 size-10 bg-stone-200 dark:bg-stone-700 rounded-full" />
               )}
-              <p className="whitespace-pre-wrap">{msg.content}</p>
+              
+              <div className="whitespace-pre-wrap flex flex-col">
+                <img src={msg.image || ''} alt="attached" className={`${msg.image ? 'max-h-40 rounded-md mb-2' : 'hidden'}`} />
+                <p>{msg.content}</p>  
+              </div>
               <Copy className='group-hover:visible invisible transition-all cursor-pointer min-w-8 size-8 p-2 rounded-md hover:bg-stone-300 hover:dark:bg-stone-700' onClick={()=>copyToClipboard(msg.content)} />
             </div>
           ))}
@@ -140,7 +172,14 @@ console.log(openModal)
 
       {/* Input Bar */}
       <div className="sm:w-full w-[90%] mx-auto sticky bottom-0 left-0 p-2 sm:p-4 flex items-center sm:gap-4 border rounded-2xl ">
-        <Plus className="size-10 p-2 rounded-full cursor-pointer hover:bg-black/10 transition-all" />
+        <div>
+          <Input type="file"  onChange={handleFileChange} id="fileInput" multiple={false} className="hidden" />
+          <label htmlFor="fileInput">
+            {base64Url ? (
+               <img src={base64Url} alt="preview" className="max-w-6 scale-150 rounded" />
+            ):(<Plus className="size-10 p-2 rounded-full cursor-pointer hover:bg-black/10 transition-all" />)}
+          </label>
+        </div>
         <Input
           value={inputValue}
           autoFocus
