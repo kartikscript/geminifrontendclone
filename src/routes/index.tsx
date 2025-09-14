@@ -20,7 +20,7 @@ function RouteComponent() {
   },[])
   return <div className='flex h-screen w-full'>
     <SideBar showExpanded={showExpanded} setShowExpanded={setShowExpanded}/>
-    {showExpanded && <div onClick={()=>setShowExpanded(false)} className='fixed size-full inset-0 bg-white/60 dark:bg-black/80 z-10'/>}
+    {showExpanded && <div onClick={()=>setShowExpanded(false)} className='block sm:hidden fixed size-full inset-0 bg-white/60 dark:bg-black/80 z-10'/>}
 
     <main className='flex-1 flex flex-col'>
       <div className='p-4 flex justify-between items-center border-b text-2xl font-semibold'>
