@@ -139,14 +139,14 @@ console.log(openModal)
       )}
 
       {/* Input Bar */}
-      <div className="sm:w-full w-[90%] mx-auto sticky bottom-0 left-0 p-2 sm:p-4 flex items-center gap-4 border rounded-2xl ">
+      <div className="sm:w-full w-[90%] mx-auto sticky bottom-0 left-0 p-2 sm:p-4 flex items-center sm:gap-4 border rounded-2xl ">
         <Plus className="size-10 p-2 rounded-full cursor-pointer hover:bg-black/10 transition-all" />
         <Input
           value={inputValue}
           autoFocus
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="placeholder:font-medium border-none focus:ring-0 shadow-none focus-visible:ring-0"
+          className="placeholder:font-medium w-full bg-transparent! border-none focus:ring-0 shadow-none focus-visible:ring-0"
           placeholder="Ask Gemini"
         />
         <SendHorizonal onClick={handleSend} className="size-10 p-2 rounded-full cursor-pointer hover:bg-black/10 transition-all"/>
