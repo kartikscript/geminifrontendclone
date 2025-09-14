@@ -56,7 +56,7 @@ const SideBar = ({showExpanded,setShowExpanded}:{showExpanded:boolean,setShowExp
       <div className='*:size-10 *:transition-all *:duration-300 *:[&:hover]:bg-stone-200 dark:*:[&:hover]:bg-stone-600 pt-6 sm:pt-0 *:p-3 *:rounded-full *:cursor-pointer flex gap-4 justify-between items-center '>
         <div className='relative group min-w-11 sm:flex justify-center items-center hidden'>
           <Menu  onClick={()=>setHardExpand(!hardExpand)} className=''/>
-          <div className='group-hover:visible invisible absolute left-0 top-full z-50 text-xs bg-stone-700 rounded-lg p-2'>Expand/Collapse</div>
+          <div className='group-hover:visible invisible absolute left-0 top-full z-50 text-xs bg-stone-300 dark:bg-stone-700 rounded-lg p-2'>Expand/Collapse</div>
         </div>
         <Search onClick={()=>setShowSearchModal(true)} className={`${(showExpanded || hardExpand) ? "opacity-100 ":"opacity-0 "} transition-all duration-300`}/>
       </div>
