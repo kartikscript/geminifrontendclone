@@ -108,7 +108,7 @@ console.log(openModal)
 
 
   return (
-    <section className="relative max-w-3xl mx-auto flex flex-col flex-1 overflow-hidden pb-2">
+    <section className="relative w-full sm:w-[80%] lg:w-3xl mx-auto flex flex-col flex-1 overflow-hidden pb-2">
 
       {activeChat ? (
         // 👇 This grows and scrolls properly
@@ -134,7 +134,7 @@ console.log(openModal)
       ) : (
         <div className="flex-1 flex flex-col gap-3 text-4xl font-medium items-center justify-center p-4">
           <h2>Hello User,</h2>
-          <p className="opacity-60 text-lg">Select a chat or start a new one to get started.</p>
+          <p className="opacity-60 text-center text-lg">Select a chat or start a new one to get started.</p>
         </div>
       )}
 
