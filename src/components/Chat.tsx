@@ -108,7 +108,7 @@ console.log(openModal)
 
 
   return (
-    <section className="relative w-3xl mx-auto flex flex-col flex-1 overflow-hidden pb-2">
+    <section className="relative max-w-3xl mx-auto flex flex-col flex-1 overflow-hidden pb-2">
 
       {activeChat ? (
         // 👇 This grows and scrolls properly
@@ -139,7 +139,7 @@ console.log(openModal)
       )}
 
       {/* Input Bar */}
-      <div className="w-full sticky bottom-0 left-0 p-4 flex items-center gap-4 border rounded-2xl ">
+      <div className="sm:w-full w-[90%] mx-auto sticky bottom-0 left-0 p-2 sm:p-4 flex items-center gap-4 border rounded-2xl ">
         <Plus className="size-10 p-2 rounded-full cursor-pointer hover:bg-black/10 transition-all" />
         <Input
           value={inputValue}

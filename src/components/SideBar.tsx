@@ -11,7 +11,7 @@ import { Modal } from './Chat'
 import { Input } from './ui/input'
 import { toast } from 'sonner'
 
-export function DropdownMenuDemo({triggerEl, children}: {triggerEl: React.ReactNode, children: React.ReactNode  }) {
+export function DropdownMenuDemo({triggerEl, children}: {triggerEl: React.ReactNode, children: React.ReactNode})  {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -24,13 +24,13 @@ export function DropdownMenuDemo({triggerEl, children}: {triggerEl: React.ReactN
   )
 }
 
-const SideBar = () => {
+const SideBar = ({showExpanded,setShowExpanded}:{showExpanded:boolean,setShowExpanded:React.Dispatch<React.SetStateAction<boolean>>}) => {
   const setActiveChat = useChatStore((state) => state.setActiveChat)
   const removeChat = useChatStore((state) => state.removeChat)
   const Chats = useChatStore((state) => state.chats)
 
 
-  const [showExpanded, setShowExpanded] = useState(false)
+  // const [showExpanded, setShowExpanded] = useState(false)
   const [hardExpand, setHardExpand] = useState(false)
   const [showSearchModal, setShowSearchModal] = useState(false)
   const [searchChats, setSearchChats] = useState(Chats)
@@ -52,9 +52,9 @@ const SideBar = () => {
   const activeChatId = useChatStore((state) => state.activeChatId)
   
   return (
-    <section onMouseLeave={collapseMenu} onMouseEnter={expandMenu} className={`${(showExpanded || hardExpand) ? "w-[40%] sm:w-[20%]" :"w-20" } transition-all duration-300 whitespace-nowrap sm:h-screen border-r p-4 flex flex-col gap-8 font-medium`}>
-      <div className='*:size-10 *:transition-all *:duration-300 *:[&:hover]:bg-stone-200 dark:*:[&:hover]:bg-stone-600  *:p-3 *:rounded-full *:cursor-pointer flex gap-4 justify-between items-center '>
-        <Menu  onClick={()=>setHardExpand(!hardExpand)} className='min-w-10'/>
+    <section onMouseLeave={collapseMenu} onMouseEnter={expandMenu} className={`${(showExpanded || hardExpand) ? "w-[70%] sm:w-[30%] lg:w-[20%]" :"w-0 sm:w-20" } overflow-hidden transition-all duration-300 whitespace-nowrap bg-white dark:bg-black z-20  h-screen border-r  sm:p-4 fixed left-0 top-0 sm:static flex flex-col gap-8 font-medium`}>
+      <div className='*:size-10 *:transition-all *:duration-300 *:[&:hover]:bg-stone-200 dark:*:[&:hover]:bg-stone-600 pt-6 sm:pt-0 *:p-3 *:rounded-full *:cursor-pointer flex gap-4 justify-between items-center '>
+        <Menu  onClick={()=>setHardExpand(!hardExpand)} className='min-w-10 sm:block hidden'/>
         <Search onClick={()=>setShowSearchModal(true)} className={`${(showExpanded || hardExpand) ? "opacity-100 ":"opacity-0 "} transition-all duration-300`}/>
       </div>
       <button onClick={()=>setActiveChat()} className='flex items-center rounded-2xl gap-3 cursor-pointer transition-all hover:bg-stone-100 dark:hover:bg-stone-600 px-4 py-2'>
