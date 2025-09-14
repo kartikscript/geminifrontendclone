@@ -36,7 +36,7 @@ export const Modal = ({
 }: ModalProps) => {
   return (
     <div onClick={()=>setOpenModal(false)} className={`fixed inset-0 z-30 size-full ${isPageOpen ? " visible" : "invisible"}  bg-stone-900/50  flex justify-center items-center`}>
-      <main onClick={e=>e.stopPropagation()} className={`w-[40%] h-[60%] ${isPageOpen ? "scale-100" : "scale-0"} overflow-y-auto transition-all duration-300 bg-stone-800 dark:bg-stone-700  text-white dark:text-black rounded-md p-4 text-center flex flex-col justify-center items-center gap-2`}>
+      <main onClick={e=>e.stopPropagation()} className={`sm:w-[40%] w-[85%] h-[90%] sm:h-[60%] ${isPageOpen ? "scale-100" : "scale-0"} overflow-y-auto transition-all duration-300 bg-stone-800 dark:bg-stone-700  text-white dark:text-black rounded-md p-4 text-center flex flex-col justify-center items-center gap-2`}>
         <h2 className="text-2xl dark:text-white">{title}</h2>
         <p className="text-sm opacity-70 mb-6 dark:text-white">{description}</p>
         {children}
